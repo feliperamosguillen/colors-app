@@ -7,6 +7,8 @@ import {
 	Route,
     Redirect
 } from "react-router-dom";
+import { CreateColor } from '../components/crud-colors/CreateColor';
+import { EditColor } from '../components/crud-colors/EditColor';
 
 export const DashboardRoutes = () => {
     return (
@@ -17,6 +19,12 @@ export const DashboardRoutes = () => {
                 <Switch>
                     <Route exact path="/colores" component={ColorsScreen}/>
                     <Route exact path="/color/:colorId" component={ColorScreen}/>
+                    
+                    <Route exact path="/create-color" component={CreateColor}/>
+                    <Route exact path="/edit-color/:colorId"
+                            render={(props) => (
+                                <EditColor colorId={props.match.params.colorId}/>
+                            )} />
 
                     <Redirect to="/colores" />
                 </Switch>

@@ -1,7 +1,7 @@
-
+import { API_URL } from '../config/api';
 
 export const getColors = async(currentPage) => {
-    const url = `http://127.0.0.1:8000/api/colores?page=${currentPage}`;
+    const url = `${API_URL}colores?page=${currentPage}`;
     const resp = await fetch(url, { 
         method: 'get', 
         headers: new Headers({

@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../auth/AuthContext'
 import { getColors } from '../../helpers/getColors';
-/*import { useFetchColors } from '../../hooks/useFetchColors';*/
 import { ColorBlock } from './ColorBlock';
-import { Pagination } from './Pagination';
 var _ = require('lodash');
 
 export const ColorsScreen = () => {
-	let currentPage = 2;
-	
-	/*const { data:colors } = useFetchColors(currentPage);*/
+	const {user} = useContext(AuthContext);
 
 	const [colors, setColors] = useState({
         data: [],
@@ -35,6 +33,19 @@ export const ColorsScreen = () => {
 	return (
 		<div>
 			<h1>Colors</h1>
+
+			{
+				(user) && ( 
+					(user.admin===1) && 
+					<Link
+						className="navbar-brand" 
+						to="/create-color"
+					>
+						Agregar
+					</Link>
+				)
+			}
+
 				{
 					colors && 
 						_.chunk(colors.data.data, 3).map( colorRow => (
@@ -42,7 +53,7 @@ export const ColorsScreen = () => {
 								<div className="colors-row" >
 								{
 									colorRow.map( element => (
-										<ColorBlock element={element} key={ `block-${_.random(1000)}`} />
+										<ColorBlock element={element} key={ `block-${_.random(100000)}${_.random(100000)}`} />
 									))
 								}
 								</div>
